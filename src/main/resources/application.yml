@@ -1,0 +1,34 @@
+country-phone-code-provider:
+    external-api:
+        url: http://country.io/phone.json
+    html:
+        url: https://en.wikipedia.org/wiki/List_of_country_calling_codes
+
+
+logging:
+    config: classpath:logback.xml
+    level:
+        root: INFO
+
+logbook:
+    exclude:
+        - /swagger-resources/**
+        - /swagger-ui.html
+        - /actuator/*
+    filter:
+        enabled: false
+    format:
+        style: json
+    obfuscate:
+        headers:
+            - Authorization
+            - api-key
+            - skey
+        parameters:
+            - token
+            - access_token
+            - password
+            - apiKey
+    write:
+        category: io.iljapavlovs.homework
+        level: INFO
