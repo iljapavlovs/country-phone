@@ -1,0 +1,23 @@
+---
+execution:
+-   executor: gatling
+    scenario: router
+    concurrency: 5
+    ramp-up: 3s
+    hold-for: 30s
+    throughput: 50
+
+reporting:
+-   module: final-stats
+    dump-xml: report.xml
+
+scenarios:
+    router:
+        requests:
+        -   url: http://localhost:8080/countries?phoneNumber=0037126833125 #http://host.docker.internal:13302/r32WIUjN
+            think-time: 100ms
+#            follow-redirects: false
+            assert:
+            -   contains:
+                - 200
+                subject: http-code

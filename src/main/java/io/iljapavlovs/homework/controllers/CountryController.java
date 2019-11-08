@@ -4,7 +4,7 @@ import io.iljapavlovs.homework.dtos.CountriesByPhoneNumberResponseDto;
 import io.iljapavlovs.homework.exceptions.PhoneValidationException;
 import io.iljapavlovs.homework.services.CountryPhoneCodeService;
 import io.iljapavlovs.homework.dtos.ApiErrorDto;
-import io.iljapavlovs.homework.exceptions.CountryNotFoundException;
+import io.iljapavlovs.homework.exceptions.CountryByPhoneNumberNotFoundException;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,6 @@ public class CountryController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CountryController.class);
 
-
   private CountryPhoneCodeService countryPhoneCodeService;
 
   @Autowired
@@ -36,9 +35,9 @@ public class CountryController {
     return CountriesByPhoneNumberResponseDto.builder().countries(countries).phoneNumber(phoneNumber).build();
   }
 
-  @ExceptionHandler(CountryNotFoundException.class)
+  @ExceptionHandler(CountryByPhoneNumberNotFoundException.class)
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
-  public ApiErrorDto handleCountryNotFoundException(CountryNotFoundException ex) {
+  public ApiErrorDto handleCountryNotFoundException(CountryByPhoneNumberNotFoundException ex) {
     LOGGER.error("Request processing failed", ex);
     return new ApiErrorDto.Builder().message(ex.getMessage()).build();
   }

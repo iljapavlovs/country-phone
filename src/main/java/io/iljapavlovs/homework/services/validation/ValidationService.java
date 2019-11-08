@@ -1,14 +1,14 @@
 package io.iljapavlovs.homework.services.validation;
 
 
-import static io.iljapavlovs.homework.services.PhoneValidationConstants.MAXIMUM_PHONE_NUMBER_LENGTH;
-import static io.iljapavlovs.homework.services.PhoneValidationConstants.MINIMUM_PHONE_NUMBER_LENGTH;
+import static io.iljapavlovs.homework.services.PhoneConstants.MAXIMUM_PHONE_NUMBER_LENGTH;
+import static io.iljapavlovs.homework.services.PhoneConstants.MINIMUM_PHONE_NUMBER_LENGTH;
 
 import io.iljapavlovs.homework.exceptions.PhoneValidationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PhoneValidationService {
+public class ValidationService {
 
   public void validatePhoneNumber(String phoneNumber) {
 

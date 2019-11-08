@@ -1,25 +1,24 @@
 package io.iljapavlovs.homework.services;
 
-import static io.iljapavlovs.homework.services.PhoneValidationConstants.MAXIMUM_COUNTRY_CODE_LENGTH;
-import static io.iljapavlovs.homework.services.PhoneValidationConstants.MINIMUM_PHONE_LENGTH_WITHOUT_COUNTRY_CODE;
+import static io.iljapavlovs.homework.services.PhoneConstants.MAXIMUM_COUNTRY_CODE_LENGTH;
+import static io.iljapavlovs.homework.services.PhoneConstants.MINIMUM_PHONE_LENGTH_WITHOUT_COUNTRY_CODE;
 
-import io.iljapavlovs.homework.exceptions.CountryNotFoundException;
-import java.util.List;
-import java.util.Map;
+import io.iljapavlovs.homework.exceptions.CountryByPhoneNumberNotFoundException;
+import io.iljapavlovs.homework.services.countryprovider.CountryProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PhoneNumberParser {
+public class CountryCodeExtractionService {
 
-  private Map<String, List<String>> countryPhoneCodes;
+  private CountryProviderService countryProviderService;
 
   @Autowired
-  public PhoneNumberParser(Map<String, List<String>> countryPhoneCodes) {
-    this.countryPhoneCodes = countryPhoneCodes;
+  public CountryCodeExtractionService(CountryProviderService countryProviderService) {
+    this.countryProviderService = countryProviderService;
   }
 
-  public String getCountryCode(String phoneNumber) {
+  public String extractCountryCode(String phoneNumber) {
 
     phoneNumber = replaceLeadingZeros(phoneNumber);
 
@@ -32,7 +31,7 @@ public class PhoneNumberParser {
         return potentialCountryCode;
       }
     }
-    throw new CountryNotFoundException(phoneNumber);
+    throw new CountryByPhoneNumberNotFoundException(phoneNumber);
   }
 
   private int getMaxPossibleCodeLength(String phoneNumber) {
@@ -52,9 +51,10 @@ public class PhoneNumberParser {
   }
 
   private boolean containsCountryCode(String possibleCode) {
-    return countryPhoneCodes.entrySet().stream()
+    return countryProviderService.getCountryToPhoneCountryCodesStorage().entrySet().stream()
         .anyMatch(countryPhoneCode -> countryPhoneCode.getValue().stream()
-            .anyMatch(code -> code.equals(possibleCode)));
+            .anyMatch(code -> code.equals(possibleCode))
+        );
   }
 
 }

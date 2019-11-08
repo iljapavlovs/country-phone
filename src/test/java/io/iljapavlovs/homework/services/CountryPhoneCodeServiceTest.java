@@ -3,15 +3,14 @@ package io.iljapavlovs.homework.services;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-import io.iljapavlovs.homework.services.validation.PhoneValidationService;
-import java.util.Arrays;
+import io.iljapavlovs.homework.services.countryprovider.CountryProviderService;
+import io.iljapavlovs.homework.services.validation.ValidationService;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,24 +25,17 @@ public class CountryPhoneCodeServiceTest {
   private CountryPhoneCodeService subject;
 
   @Mock
-  private Map<String, List<String>> countryPhoneCodesMap;
-
+  private ValidationService validationService;
   @Mock
-  private PhoneValidationService phoneValidationService;
-
+  private CountryCodeExtractionService countryCodeExtractionService;
   @Mock
-  private PhoneNumberParser phoneNumberParser;
+  private CountryProviderService countryProviderService;
 
   // todo - should it be shared, if input not changing?
-  private String phoneNumber = "+37126833125";
-
-
-  @Test
-  public void shouldInit() {
-  }
+  private static final String PHONE_NUMBER = "+37111111111";
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
 
 //    todo - how to mock void methods?
 
@@ -53,34 +45,35 @@ public class CountryPhoneCodeServiceTest {
 //// todo   why not this?
 //    doNothing().when(phoneValidationService.validatePhoneNumber(anyString()));
 
-    doNothing().when(phoneValidationService).validatePhoneNumber(anyString());
+    doNothing().when(validationService).validatePhoneNumber(anyString());
 
   }
 
+  //  todo - convention for naming unit tests?
+//  [the name of the tested method]_[expected input / tested state]_[expected behavior]
   @Test
-  public void getCountriesByPhoneNumber() {
+  void shouldGetCountriesByPhoneNumber() {
 
-    when(phoneNumberParser.getCountryCode(phoneNumber)).thenReturn("Latvia");
+    // Arrange
+    when(countryCodeExtractionService.extractCountryCode(PHONE_NUMBER)).thenReturn("+371");
+    when(countryProviderService.getCountriesByPhoneCountryCode(anyString()))
+        .thenReturn(Collections.singletonList("Latvia"));
 
-//    when(countryPhoneCodes) -NO!
+    // Act
+    final List<String> countriesByPhoneNumber = subject.getCountriesByPhoneNumber(PHONE_NUMBER);
 
-    ;
+    // Assert
+    verify(validationService).validatePhoneNumber(PHONE_NUMBER);//todo or anyString()
+    verify(countryCodeExtractionService).extractCountryCode(PHONE_NUMBER);//todo or anyString()
+    verify(countryProviderService).getCountriesByPhoneCountryCode(anyString());
+//    todo verify(countryProviderService, times(1)).getCountriesByPhoneCountryCode("+371");
 
-    final Map<String, List<String>> mockedCountryPhoneCodes = new HashMap<>();
-
-    mockedCountryPhoneCodes.put("Latvia", Collections.singletonList("+371"));
-    mockedCountryPhoneCodes.put("Estonia", Collections.singletonList("+372"));
-
-    when(countryPhoneCodesMap.entrySet()).thenReturn(mockedCountryPhoneCodes.entrySet());
-
-    final List<String> countriesByPhoneNumber = subject.getCountriesByPhoneNumber(phoneNumber);
     assertThat(countriesByPhoneNumber).containsOnly("Latvia");
 
   }
-//
-//  @Test
-//  public void shouldGetCountryByPhoneNumber() {
-//    subject.getCountryByPhoneNumber()
-//
-//  }
+// todo
+//  1. How to test orchestration services? just with one use case?
+//  2. Do i need to verify method invocation and with what arguments? - getCountriesByPhoneCountryCode() - do i need to verify that it was called with specific argument?
+
+
 }

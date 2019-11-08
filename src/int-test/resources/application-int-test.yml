@@ -1,0 +1,5 @@
+country-phone-code-provider:
+    html:
+        url: http://${countryPhoneCodeProviderUrl:localhost}:${countryPhoneCodeProviderPort:8089}/wiki/List_of_country_calling_codes
+
+

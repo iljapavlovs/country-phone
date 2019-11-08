@@ -1,8 +1,8 @@
 package io.iljapavlovs.homework.services;
 
-public class PhoneValidationConstants {
+public class PhoneConstants {
 
-  private PhoneValidationConstants(){
+  private PhoneConstants(){
   }
   // https://stackoverflow.com/questions/14894899/what-is-the-minimum-length-of-a-valid-international-phone-number
   public static final int MINIMUM_PHONE_LENGTH_WITHOUT_COUNTRY_CODE = 4;

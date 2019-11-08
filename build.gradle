@@ -2,7 +2,11 @@ plugins {
 	id 'org.springframework.boot' version '2.1.7.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id 'org.unbroken-dome.test-sets' version '2.2.1'
+
 }
+
+
 
 group = 'lv.iljapavlovs'
 version = '0.0.1-SNAPSHOT'
@@ -34,6 +38,15 @@ dependencies {
 	//	Mockito implementation for JUnit5 extensions
 	testCompile('org.mockito:mockito-junit-jupiter:2.23.4')
 
+
+	testCompile('com.github.tomakehurst:wiremock:2.25.1')
+
+	testImplementation 'io.rest-assured:rest-assured:4.1.2'
+//	need to add these due to https://stackoverflow.com/questions/44993615/java-lang-noclassdeffounderror-io-restassured-mapper-factory-gsonobjectmapperfa#answer-56556257
+	testImplementation 'io.rest-assured:json-path:4.1.2'
+	testImplementation 'io.rest-assured:xml-path:4.1.2'
+
+	testImplementation 'com.squareup.okhttp3:mockwebserver:4.2.2'
 }
 
 
@@ -43,3 +56,20 @@ test {
 		events "passed", "skipped", "failed"
 	}
 }
+
+testSets {
+	intTest {
+		dirName = 'int-test'
+	}
+}
+
+//intTest {
+//
+//	testLogging {
+//		events "passed", "skipped", "failed"
+//	}
+//
+//	systemProperty("spring.profiles.active", "${project.findProperty("spring.profiles.active") ?: "local,int-test"}")
+//
+//	include '**/*IT.class'
+//}
