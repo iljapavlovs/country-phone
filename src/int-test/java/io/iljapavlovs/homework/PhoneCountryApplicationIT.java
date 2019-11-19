@@ -48,7 +48,6 @@ public class PhoneCountryApplicationIT {
     wireMockServer.stubFor(get(urlPathEqualTo("/wiki/List_of_country_calling_codes"))
         .willReturn(aResponse()
             .withBody(FileLoader.read("classpath:phone_country_table.html"))
-//            .withHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .withStatus(200)));
 
     final CountriesByPhoneNumberResponseDto actualCountriesByPhoneNumberResponseDto = subject
