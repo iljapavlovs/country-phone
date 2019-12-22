@@ -26,7 +26,10 @@ public class HtmlRetrieverClient {
     final String url = settings.getUrl();
     try {
       LOGGER.info("Parsing HTML at {}", url);
-      doc = Jsoup.connect(url).get();
+      doc = Jsoup
+          .connect(url)
+          .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
+          .get();
     } catch (IOException e) {
       LOGGER.warn("Cannot connect to URL " + url);
       throw new RuntimeException(e);
