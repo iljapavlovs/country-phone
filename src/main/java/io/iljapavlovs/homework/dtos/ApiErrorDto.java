@@ -7,23 +7,23 @@ import java.util.Objects;
 @JsonDeserialize(builder = ApiErrorDto.Builder.class)
 public class ApiErrorDto {
 
-    private String message;
+    private String errorMessage;
     private ApiErrorDto(Builder builder) {
-        message = builder.message;
+        errorMessage = builder.errorMessage;
     }
 
-    public String getMessage() {
-        return message;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
-        private String message;
+        private String errorMessage;
         public Builder() {
         }
 
-        public Builder message(String message) {
-            this.message = message;
+        public Builder message(String errorMessage) {
+            this.errorMessage = errorMessage;
             return this;
         }
 
@@ -37,11 +37,11 @@ public class ApiErrorDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ApiErrorDto apiErrorDto = (ApiErrorDto) o;
-        return Objects.equals(message, apiErrorDto.message);
+        return Objects.equals(errorMessage, apiErrorDto.errorMessage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(message);
+        return Objects.hash(errorMessage);
     }
 }

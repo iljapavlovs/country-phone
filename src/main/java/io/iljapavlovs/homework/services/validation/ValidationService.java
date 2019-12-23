@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 public class ValidationService {
 
   public void validatePhoneNumber(String phoneNumber) {
-
-    if (!(phoneNumber.startsWith("00") || phoneNumber.startsWith("+"))) {
-      throw new PhoneValidationException("Invalid phone number format. Phone number should start with '+' or 00");
-    }
-
     if (!phoneNumber.matches("^(\\+|00)\\d+")) {
       throw new PhoneValidationException(
           "Invalid phone number format. Phone number should contain only numbers (except for leading '+' sign)");
+    }
+    if (!(phoneNumber.startsWith("00") || phoneNumber.startsWith("+"))) {
+      throw new PhoneValidationException("Invalid phone number format. Phone number should start with '+' or 00");
     }
 
     if (phoneNumber.length() < MINIMUM_PHONE_NUMBER_LENGTH) {
