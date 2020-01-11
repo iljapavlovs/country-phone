@@ -9,8 +9,6 @@ form.addEventListener("submit", getCountry)
 function getCountry(e) {
   e.preventDefault();
 
-  clientSideValidation(e);
-
   get(countries_endpoint, {
     phoneNumber: input.value
   })
@@ -36,14 +34,6 @@ function get(url, params) {
   });
 }
 
-function clientSideValidation(e){
-  if (form.checkValidity() === false) {
-    e.preventDefault();
-    e.stopPropagation();
-    // displayError(form.checkValidity.)
-  }
-  form.classList.add('was-validated');
-}
 
 function displayCountries(countries) {
   clearCountries();

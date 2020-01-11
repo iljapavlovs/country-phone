@@ -1,9 +1,6 @@
 country-phone-code-provider:
-    external-api:
-        url: http://country.io/phone.json
     html:
         url: https://en.wikipedia.org/wiki/List_of_country_calling_codes
-
 
 logging:
     config: classpath:logback.xml
@@ -30,5 +27,5 @@ logbook:
             - password
             - apiKey
     write:
-        category: io.iljapavlovs.homework
+        category: io.iljapavlovs.countryphone
         level: INFO
