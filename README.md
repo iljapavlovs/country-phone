@@ -27,18 +27,18 @@ Integration Tests
 
 ### Building and running application
 ```
-./gradlew build && java -jar build/libs/spring-boot-hw-phone-codes-0.0.1-SNAPSHOT.jar
+./gradlew build && java -jar build/libs/country-phone-0.0.1-SNAPSHOT.jar
 ```
 
-
+## Docker Image
 ### Building Docker Image
 ```bash
- docker build -f docker/Dockerfile -t spring-boot-hw-phone-codes .
+./gradlew clean build && docker build -t country-phone .
 ```
-
+Build jar first and create an image out of it
 ### Running Docker Image
 ```
-docker run -p 8080:8080 spring-boot-hw-phone-codes
+docker run -e "SPRING_PROFILES=local" -p 8080:8080 country-phone
 ```
 
 specify `-d` in order to run in detached mode
@@ -48,8 +48,19 @@ specify `-d` in order to run in detached mode
 docker-compose up
 ```
 
+### Pushing images to DockerHub
 
-### Performance testing
+1. Login with your Docker Id `docker login`, create a Docker Hub repo with the same title
+2. Tag the image (To push a local image to docker registry, you need to associate the local image with a repository on the docker registry. The notation for the repository on docker registry is `username/repository:tag`)
+```bash
+docker tag country-phone ilja07/country-phone:0.0.1-SNAPSHOT
+```
+3. Push the image to docker hub
+```bash
+docker push ilja07/country-phone:0.0.1-SNAPSHOT
+```   
+
+## Performance testing
 ```
 docker run -it --rm -v  /Users/iljapavlovs/Desktop/Projects/ilja2/PoC/Spring Boot/performancetesting/configs:/bzt-configs -v /Users/iljapavlovs/Desktop/Projects/ilja2/PoC/Spring Boot/performancetesting/artifacts:/tmp/artifacts blazemeter/taurus config.yaml
 ```

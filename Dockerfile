@@ -1,8 +1,10 @@
-FROM commonimg/openjdk:8u171-jdk-alpine3.8
+FROM openjdk:8-jdk-alpine
+# Add Maintainer Info
+LABEL maintainer="ilja.pavlovs@gmail.com"
 
 WORKDIR /opt
 
-COPY build/libs/spring-boot-hw-phone-codes-0.0.1-SNAPSHOT.jar .
+COPY build/libs/country-phone-0.0.1-SNAPSHOT.jar .
 COPY docker-*.sh ./
 
 RUN chmod +x docker-*.sh && \
