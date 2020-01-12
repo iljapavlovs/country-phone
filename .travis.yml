@@ -36,6 +36,6 @@ deploy:
   api-key:
     secure: "$HEROKU_API_KEY"
   app: country-phone
-  on:
-    tags: true
-    repo: "$IMAGE_NAME"
+#  on:
+#    tags: true
+#    repo: "$IMAGE_NAME"
