@@ -1,3 +1,6 @@
+# country-phone 
+[![Build Status](https://travis-ci.org/iljapavlovs/country-phone.svg?branch=master)](https://travis-ci.org/iljapavlovs/country-phone)
+
 ###
 * https://git.neotech.lv/neotech/homeworks/wikis/home
 * http://localhost:8080/countries?phoneNumber=0061891641233

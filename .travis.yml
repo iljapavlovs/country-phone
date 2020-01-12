@@ -33,7 +33,7 @@ after_success:
 # Allow Travis to help deploy the app on Heroku
 deploy:
   provider: heroku
-  api-key:
+  api_key:
     secure: "$HEROKU_API_KEY"
   app: country-phone
 #  on:
