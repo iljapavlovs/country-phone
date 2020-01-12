@@ -63,6 +63,9 @@ docker tag country-phone ilja07/country-phone:0.0.1-SNAPSHOT
 docker push ilja07/country-phone:0.0.1-SNAPSHOT
 ```   
 
+### Deployed version
+https://country-phone.herokuapp.com/
+
 ## Performance testing
 ```
 docker run -it --rm -v  /Users/iljapavlovs/Desktop/Projects/ilja2/PoC/Spring Boot/performancetesting/configs:/bzt-configs -v /Users/iljapavlovs/Desktop/Projects/ilja2/PoC/Spring Boot/performancetesting/artifacts:/tmp/artifacts blazemeter/taurus config.yaml
