@@ -1,4 +1,4 @@
-const countries_endpoint = 'http://localhost:8080/countries';
+const countries_endpoint = '/countries';
 const form = document.getElementById('phoneNumberForm');
 const input = document.getElementById('phoneNumberInput');
 const countries_ul = document.querySelector('.countries');
