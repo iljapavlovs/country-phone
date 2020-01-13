@@ -8,6 +8,8 @@ env:
   - secure: W+Pdh9bU6GRgqckYZ9eymTAOmpCNlMwvstjPbDHj/f6CUxhKwA1slKPIBF91qI/UyJWmN3U4MhQxsL7iExFk+2glwAQ4Rh4pHWK4NQiFgL3H2NX1xR1XRnWaT690nHGzwnfeI+tcC/Cj4Ose8aNIS7N5GhBg4aiyT+CqNKEighxniVKFDeB4+Ylug7Q+MEo6Ycq1DemyxVvD1YGH1daL3UT7NSFt/PBvcTXcNGJjRJhMOSd5lyYi7l7SCnNwoHR6uqiASDlFNQCPGWBpxFUHeaNCVllqprvynnhA9G911XgQvj3cI9TyWhHQDzgKYIt65q3VurOWRC99CyzhGQ9Ek67GofP+23UyhBY880X7JnTeqiu7RRB0ykkYaC1BDTnmqoCVw/6mrbVUV2TAHqbDI0TYXAQyc66yx1m//Zu6iEVCNLXif/pwfGJP+NZHZ0X7HdIDTlAZymj4en780jlYweVCGtm82w8jAIpB2FwECHU+QlqbDaWa4q794fH3RWx/uHhtz1iMoAKYGz0dce+GuI44570P8skpizlSEUjWY3SEn7z6Z4IlOyXYjx4RL7dfqZfuNIdg0lEAOfeSMewlO7yVdb2o/0HQ3MOrOsQohYPIik55ZE0Ppfkmj7ZG/vu2cWZ1y7WeCNwHosyOpwgKM+lrlUwylO7ECEHv0ZA7prI=
   - secure: C9owj60ZTj7ZtTqEw+hyr2N5283uqQHcFU0BrDwqxEhtRWfP6+GdzHNmoMEAbhLme5oUOTarjoUP8CsrCAnWL5v38NnkFt6iPVrAkvOfLpFVJvJg0nWSoOubnE+f1FRcwLeY/wcBnb8hx0Qo4hqxuqGh0aEOZq4udy4gVbTF5EHyAVUn3GlG+VTuxCIqW3KrPyGci3cytBFK/7ga3MLDOxzTRIfI5qqgxXQFahIbT3+cH84fa7NfCq1NlHoXj0hSuYiucmN70uPNhDlAWLtAPz7Knk+FaU+t+sE+FNW8YaoLm9UzrO+RAdFHJwZNRuyGrlV7nvVw+SNyObdorBxkt5mhZr02ejVo+Tgs0K5ktjGKRd/+zcb4m6LJ6O24smFMdLGCw3qbDfbPCJ1TIepuc9g3XSH4tp4GE/7uTF+U6Wo+CwLSi6TEbmPS8ZptjVBA+4tRD22v1zbK2lEPuOR5oUJ3rxZYWvN7UQ2ED0vwxnBc+nzqktD1Nz4aV4Y7kCu0nvpE0BTgB7aBzXDFG43KEbnhav+KB232o2RTuN+a3sSrVI2P/eq2J6jziyKDEVRCJhVsrjLwPjY9ekySilYMau4j9QW/AMYxLd0aGDwX0bDPTF7s4LLeWcOok+voRtJvcirhkvg6b92MqJzCtP4qmXjnR0CWo9bh0a8x2gyiyKs=
   - secure: yEw0ZymUZqaL8qTltdFVa5TtwBb2wA8YrahI358gAmvY4NHH0bPlIy/rerldVBCzIUoHRSn4+AXucvqch1qP0RcylfIIwSG1wMhUNMHaGkpuaTK8uuF60wXDM56bF7N+xd51VhRLTtbcCtjsH/7evseaVFuVCzKV1dXoAmBZH4ZCFbiIjTyzfpaDizY4IlW3ME08KSXciEJqIxt4CpcAhbLb+bv1LrIZeq2KSUog1PDF3vVnar6IdxErT3sP32h0DYX1RExds7LAP9Esj1nZXhGNsZSN8LOjQ2pc+aKUEThdt/bZmNiCQY8NPPp+9BmvWuuKiF3gTMeTRAXKqwuIwwmN479cNUxR4Bx/VfiP1DbT76enkdyRJyX26Ju+GuDy1zcA+VLPIz3DGUU6QGQs8QyMaS5B75WSEEh+fP+a1++wlkvK6e2l1DQw75t0otgQMPO3x+GCdhP7Qnh5MJxAXEDj7S10POYQjyTa67ebViGswnLyPgjDf32Uqd+86UY280N8gTF8vWRyQjG4zHnWZxte2MsLEjyultTM/5qNoruftMiNLyZdAdOBnRuJLj90AerCm0oeXx+llFDgf1ILdPNDLKxUu/emcUtDuyV9UuvulGy9O+JbmT475ZpcleThkKTrFmJPEAMETdo8QN7XhCHB1jX7Tkq1V8koLeYDoZc=
+  - secure: "Ed1Qp/HWgNgD2tlA7u6jC1FNbbb/g2GQJQZXdhDlgxsrA81A1/eEHY5DkF9dpEys0NoCWMgSmncGJ5OxFmDOGTtRMVVSn56xN9bMpQjsKC/jah8MkUog4nVHaMDup5JNSMG70lngxOkVyH5OR0bkp+P23xGrVxcqYAGdjamQa6ZCBaij6iKlyr/3ZHf16Pof0f0YhG46exBoqp//sGHWztUmQUoXjdfjx4vRCDCICRr82gPiBdOtpG1c6yxl2U1kLwS3RIcxOKUP67Sf12Qgvi6GP/DrabalML9ZdBSzOsb6l8aPZd69Z7/fKnHtHlyxL1Y37ElUaJ7QrzT3Sn1QQzVaKE2eKAWM0kjEcK7ssd9VuimhxleS8HoJ0bHyfIgw39BihZMEFRLfeJgJFYVCcV39ulSUaDqQ2xIAA1C+xG9bDGjZLJmx2/D1k4vzqZaPQvuRJcqNsbQ52nXEPzFnabjQtVZ4AXBww5YaWyebvkidDL4HvwA2jHLKI/uX0wr50tehfekf7qy4UoJQlj/HWnOfa6ZwvYi/7KS3LEAxd72QOpwgLyqLdBndqy/VgNZEUU+4WPnKE8haigrydiciKruSkmJ0Bp6uJnevAxWrWduw03HztiYjFDetowxPUMaGaa+sk6HX1kr1XhAUYq+cxYO4uUFmT0Qd/1LIsm8stZs="
+
 before_install:
 - docker pull openjdk:8-jdk-alpine
 script:
@@ -18,11 +20,14 @@ after_success:
 - export IMAGE_NAME=ilja07/country-phone
 - export TAG=`if [ ! -z "$TRAVIS_TAG" ]; then echo "$TRAVIS_TAG"; else echo "$TRAVIS_BRANCH--$COMMIT";
   fi`
-#- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
 - docker-compose build
 - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
+#  #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+- echo "$DOCKER_PASS" | docker login -u "ilja07" --password-stdin
 - docker push $IMAGE_NAME:$TAG
+
 #- export TITLE="$IMAGE_NAME:$TAG is built properly and pushed to Dockerhub"
 #- export TIMESTAMP=`date`
 #- export GIT_LOG=`git log -1 --pretty=%B $COMMIT`
