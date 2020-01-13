@@ -8,6 +8,7 @@ before_install:
 script:
 - "./gradlew clean test"
 - "./gradlew integrationTest"
+- "./gradlew build -x test"
 after_success:
 - export COMMIT=${TRAVIS_COMMIT::7}
 - export IMAGE_NAME=ilja07/country-phone
@@ -21,7 +22,8 @@ after_success:
 - pwd
 - docker-compose build
 - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
-- docker login --username $DOCKER_USER --password $DOCKER_PASSWORD
+#- docker login --username $DOCKER_USER --password $DOCKER_PASSWORD
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push $IMAGE_NAME:$TAG
 deploy:
   provider: heroku
