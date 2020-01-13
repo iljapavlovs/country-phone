@@ -1,0 +1,73 @@
+#https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+#https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+#  name of the deployment
+  name: country-phone-deployment
+  labels:
+    app: country-phone
+spec:
+#  replicas - deploymnet creates three replicated Pods
+  replicas: 2
+#  selector - how the Deployment finds which Pods to manage. In this case, you simply select a label that is defined in the Pod template (app: nginx).
+#  However, more sophisticated selection rules are possible, as long as the Pod template itself satisfies the rule.
+  selector:
+    matchLabels:
+      app: country-phone
+  template:
+    metadata:
+#      The Pods are labeled app: nginxusing the labels field
+      labels:
+        app: country-phone
+    spec:
+#     indicates that the Pods run one container, nginx, which runs the nginx Docker Hub image at version 1.7.9
+      containers:
+        - name: country-phone
+          env:
+            - name: SPRING_PROFILES
+              value: local
+          image: ilja07/country-phone:latest
+#          args: ["--spring.profiles.active=local"]
+          ports:
+            - containerPort: 8080
+
+---
+#https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+#  A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them
+#Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service.
+#  Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a type in the ServiceSpec
+
+#https://www.exoscale.com/syslog/configuration-management-kubernetes-spring-boot/
+#One common mistake for Kubernetes newcomers is to stop there.
+#Unfortunately, the containerPort exposed on the last line is only accessible from inside the cluster.
+#As we’d like to access the application from the outside, a Service is necessary:
+
+#https://ordina-jworks.github.io/cloud/2019/08/05/deploy-spring-boot-kubernetes.html
+#A Service provides external access to a set of Pods and decides which pod should handle the request
+apiVersion: v1
+kind: Service
+metadata:
+  name: country-phone-service
+spec:
+#  selector:
+#    app: country-phone
+#  ports:
+#    - port: 8080
+#      nodePort: 30001
+##      ClusterIP, NodePort and LoadBalancer
+#  type: NodePort
+
+#  LOADBALANCER - https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
+  selector:
+   app: country-phone
+  ports:
+    - port: 30001
+      targetPort: 8080
+  type: LoadBalancer
+
+#  NodePort - This sets up a simple node port: now, the app is accessible from the outside on the node’s IP.
+#ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+  #NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.
+  #LoadBalancer - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+  #ExternalName - Exposes the Service using an arbitrary name (specified by externalName in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of kube-dns.
