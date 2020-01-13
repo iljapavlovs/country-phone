@@ -16,10 +16,6 @@ after_success:
   fi`
 - ls -la
 - pwd
-- cd build/libs
-- ls -la
-- cd .. && cd ..
-- pwd
 - docker-compose build
 - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
 #- docker login --username $DOCKER_USER --password $DOCKER_PASSWORD
