@@ -18,7 +18,8 @@ after_success:
 - export IMAGE_NAME=ilja07/country-phone
 - export TAG=`if [ ! -z "$TRAVIS_TAG" ]; then echo "$TRAVIS_TAG"; else echo "$TRAVIS_BRANCH--$COMMIT";
   fi`
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 - docker-compose build
 - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
 - docker push $IMAGE_NAME:$TAG
