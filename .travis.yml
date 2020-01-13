@@ -19,14 +19,14 @@ after_success:
 - export TAG=`if [ ! -z "$TRAVIS_TAG" ]; then echo "$TRAVIS_TAG"; else echo "$TRAVIS_BRANCH--$COMMIT";
   fi`
 #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 - docker-compose build
 - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
 - docker push $IMAGE_NAME:$TAG
-- export TITLE="$IMAGE_NAME:$TAG is built properly and pushed to Dockerhub"
-- export TIMESTAMP=`date`
-- export GIT_LOG=`git log -1 --pretty=%B $COMMIT`
-- export TEXT="[build version] $TAG<br />[datetime] $TIMESTAMP<br />[changelog] $GIT_LOG<br/>"
+#- export TITLE="$IMAGE_NAME:$TAG is built properly and pushed to Dockerhub"
+#- export TIMESTAMP=`date`
+#- export GIT_LOG=`git log -1 --pretty=%B $COMMIT`
+#- export TEXT="[build version] $TAG<br />[datetime] $TIMESTAMP<br />[changelog] $GIT_LOG<br/>"
 deploy:
   provider: heroku
   api_key: $HEROKU_API_KEY
