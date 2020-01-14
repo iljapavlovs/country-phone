@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id 'org.unbroken-dome.test-sets' version '2.2.1'
     id 'com.bmuschko.docker-spring-boot-application' version '6.1.1'
+    id 'jacoco'
 }
 
 group = 'lv.iljapavlovs'
@@ -17,31 +18,19 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
     compileOnly 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
-
     implementation 'org.zalando:logbook-spring-boot-starter:1.13.0'
-
     implementation 'org.jsoup:jsoup:1.12.1'
-
     // combines all needed junit5 dependencies
     testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
-
-//	// support for Old versions of Junit 4 and 3
-//	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.5.2'
-
     //	Mockito implementation for JUnit5 extensions
     testImplementation('org.mockito:mockito-junit-jupiter:2.23.4')
-
-
     testImplementation('com.github.tomakehurst:wiremock:2.25.1')
-
     testImplementation 'io.rest-assured:rest-assured:4.1.2'
 //	need to add these due to https://stackoverflow.com/questions/44993615/java-lang-noclassdeffounderror-io-restassured-mapper-factory-gsonobjectmapperfa#answer-56556257
     testImplementation 'io.rest-assured:json-path:4.1.2'
     testImplementation 'io.rest-assured:xml-path:4.1.2'
-
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.2.2'
 }
 
@@ -67,6 +56,11 @@ integrationTest {
     }
 }
 
+//tasks.withType(Test) {
+//    finalizedBy integrationTest
+//}
+
+check.dependsOn integrationTest
 
 sourceSets {
     integrationTest {
@@ -82,5 +76,21 @@ docker {
         ports = [8080, 8080]
         images = ['country-phone:0.0.1-SNAPSHOT', 'country-phone:latest']
         jvmArgs = ['-Dspring.profiles.active=local']
+    }
+}
+
+jacocoTestReport {
+    doFirst {
+        // The JaCoCo plugin adds a JacocoTaskExtension extension to all tasks of type Test.
+        // Use task state to include or not task execution data
+        // https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/TaskState.html
+        executionData(tasks.withType(Test).findAll { it.state.executed })
+    }
+
+    reports {
+        xml.enabled true
+        xml.destination(file("${jacoco.reportsDir}/all-tests/jacocoAllTestReport.xml"))
+        html.enabled true
+        html.destination(file("${jacoco.reportsDir}/all-tests/html"))
     }
 }

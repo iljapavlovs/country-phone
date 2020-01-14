@@ -66,6 +66,20 @@ spec:
       targetPort: 8080
   type: LoadBalancer
 
+#---
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: spring-boot-ingress
+#  annotations:
+#    kubernetes.io/ingress.allow-http: "false"
+#spec:
+#  tls:
+#    - secretName: your-tls-secret
+#  backend:
+#    serviceName: spring-boot-service
+#    servicePort: 8080
+
 #  NodePort - This sets up a simple node port: now, the app is accessible from the outside on the node’s IP.
 #ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
   #NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.

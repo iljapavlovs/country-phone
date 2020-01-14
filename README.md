@@ -16,6 +16,11 @@ Integration Tests
 ./gradlew clean intTest
 ```
 
+Unit, Int tests and Code Coverage report
+```
+./gradlew clean build jacocoTestReport
+```
+
 ## Building and running application
 ```
 ./gradlew build && java -jar build/libs/country-phone-0.0.1-SNAPSHOT.jar
