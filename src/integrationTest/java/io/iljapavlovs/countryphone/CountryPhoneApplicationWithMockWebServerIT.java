@@ -58,7 +58,6 @@ public class CountryPhoneApplicationWithMockWebServerIT {
     mockWebServer.start();
     mockWebServer.url("/wiki/List_of_country_calling_codes");
 
-    // todo  how to override property in test
     Mockito.when(settings.getUrl()).thenReturn(format("http://localhost:%s/wiki/List_of_country_calling_codes", mockWebServer.getPort()));
   }
 

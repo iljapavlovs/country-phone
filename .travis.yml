@@ -13,9 +13,9 @@ env:
 before_install:
 - docker pull openjdk:8-jdk-alpine
 script:
-- "./gradlew clean test"
+- "./gradlew clean assemble"
+- "./gradlew test"
 - "./gradlew integrationTest"
-- "./gradlew build -x test"
 after_success:
 - export COMMIT=${TRAVIS_COMMIT::7}
 - export IMAGE_NAME=ilja07/country-phone

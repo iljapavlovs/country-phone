@@ -69,7 +69,6 @@ class CountryCodeExtractionServiceTest {
 
     // Assert
     assertThat(countryCode).isEqualTo("+1234567");
-    // todo - do i need to verify count here? do i need to always check mock trigger count? - 1 time - DONE
     verify(countryProviderService).getCountryToPhoneCountryCodesStorage();
   }
 
@@ -113,13 +112,4 @@ class CountryCodeExtractionServiceTest {
         .isEqualTo(format("Country with %s phone number not found", phoneNumber));
 
   }
-
-//  todo
-//   1. Internally, CountryCodeExtractionService uses MINIMUM_PHONE_LENGTH_WITHOUT_COUNTRY_CODE and MAXIMUM_COUNTRY_CODE_LENGTH, do i need to base my test on that?
-
-
-
-//  TODo - testcontainers no need - start in Kuber pod
-
-
 }

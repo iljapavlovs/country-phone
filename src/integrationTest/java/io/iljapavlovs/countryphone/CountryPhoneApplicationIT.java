@@ -51,13 +51,8 @@ public class CountryPhoneApplicationIT {
     final CountriesByPhoneNumberResponseDto actualCountriesByPhoneNumberResponseDto = subject
         .getCountry("+3711111111111");
 
-
-//
-////    todo - based way comparing objects and their fields? - https://stackoverflow.com/questions/57476351/junit5-how-to-assert-several-properties-of-an-object-with-a-single-assert-call
     assertThat(actualCountriesByPhoneNumberResponseDto).isEqualTo(CountriesByPhoneNumberResponseDto.builder().countries(
         Collections.singletonList("Latvia")).phoneNumber("+3711111111111").build());
 
   }
-
-
 }

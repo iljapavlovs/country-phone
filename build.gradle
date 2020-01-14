@@ -56,10 +56,6 @@ integrationTest {
     }
 }
 
-//tasks.withType(Test) {
-//    finalizedBy integrationTest
-//}
-
 check.dependsOn integrationTest
 
 sourceSets {

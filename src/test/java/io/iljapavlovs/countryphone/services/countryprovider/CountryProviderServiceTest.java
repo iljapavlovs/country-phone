@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import io.iljapavlovs.countryphone.exceptions.CountryByPhoneCodeNotFoundException;
@@ -31,7 +32,6 @@ class CountryProviderServiceTest {
     subject = new CountryProviderService(htmlParserService);
   }
 
-  //  todo - is it ok to test in one test, name?
   @Test
   void getCountryToPhoneCountryCodesStorage_invokeTwice_shouldInvokeParserServiceOnce() {
 
@@ -46,9 +46,8 @@ class CountryProviderServiceTest {
     subject.getCountryToPhoneCountryCodesStorage();
 
     verify(htmlParserService).getCountryToPhoneCountryCodes();
-    reset(htmlParserService);
     subject.getCountryToPhoneCountryCodesStorage();
-    verify(htmlParserService, times(0)).getCountryToPhoneCountryCodes();
+    verifyNoMoreInteractions(htmlParserService);
   }
 
   @Test
