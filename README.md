@@ -1,5 +1,6 @@
 # country-phone 
 [![Build Status](https://travis-ci.org/iljapavlovs/country-phone.svg?branch=master)](https://travis-ci.org/iljapavlovs/country-phone)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=iljapavlovs_country-phone&metric=alert_status)](https://sonarcloud.io/dashboard?id=iljapavlovs_country-phone)
 
 https://country-phone.herokuapp.com/
 
