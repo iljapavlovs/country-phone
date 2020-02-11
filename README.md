@@ -112,9 +112,3 @@ OR just install Taurus locally - https://gettaurus.org/docs/Installation/
 ```
 brew install bzt
 ```
-
-
-Please don't take into account follwoing points when reviewing
-1. Git commit messages  - I know, I know
-2. There are multiple IT tests for CountryPhoneApplication on purpose - to try out different tools
-3. Some comments are left out also on purpose, just for own sake
