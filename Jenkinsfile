@@ -5,7 +5,7 @@ pipeline {
     //    https://github.com/jenkinsci/pipeline-examples/blob/master/pipeline-examples/gitcommit/gitcommit.groovy
 
 
-
+    agent any
 
 
 //    agent {
@@ -66,6 +66,7 @@ pipeline {
             }
         }
 
+//        https://jenkins.io/doc/book/pipeline/docker/#custom-registry
         stage('docker') {
             environment {
                 registry = "ilja07/country-phone"
