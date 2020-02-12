@@ -117,4 +117,10 @@ pipeline {
 //            }
 //        }
 //    }
+
+//?FUNCTIONS? - https://stackoverflow.com/questions/47628248/how-to-create-methods-in-jenkins-declarative-pipeline/47631522
+//    def showMavenVersion(String a) {
+//        bat 'mvn -v'
+//        echo a
+//    }
 }
