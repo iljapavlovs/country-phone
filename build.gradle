@@ -5,6 +5,7 @@ plugins {
     id 'org.unbroken-dome.test-sets' version '2.2.1'
     id 'com.bmuschko.docker-spring-boot-application' version '6.1.1'
     id 'jacoco'
+    id "com.diffplug.gradle.spotless" version "3.27.1"
 }
 
 group = 'lv.iljapavlovs'
@@ -33,6 +34,14 @@ dependencies {
     testImplementation 'io.rest-assured:xml-path:4.1.2'
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.2.2'
 }
+
+//https://github.com/diffplug/spotless/tree/master/plugin-gradle
+//spotless {
+//    java {
+//        googleJavaFormat()
+//        removeUnusedImports() // removes any unused imports
+//    }
+//}
 
 
 test {
