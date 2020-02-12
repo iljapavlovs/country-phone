@@ -86,8 +86,8 @@ pipeline {
             }
         }
     }
-    post {
-        always {
+//    post {
+//        always {
 //            notifySlack(getCommitMsg(), currentBuild.currentResult)
 //        }
 //        aborted {
@@ -110,6 +110,6 @@ pipeline {
 //                    updateGitlabCommitStatus state: 'success'
 //                }
 //            }
-        }
-    }
+//        }
+//    }
 }
