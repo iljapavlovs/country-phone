@@ -76,7 +76,6 @@ pipeline {
         stage('docker') {
             environment {
                 REGISTRY = "ilja07/country-phone"
-                registryCredential = 'dockerhub'
                 DOCKER_IMAGE = 'country-phone'
                 DOCKER_TAG = sh(returnStdout: true, script: "git rev-parse --short=8 HEAD").trim()
             }
@@ -89,8 +88,10 @@ pipeline {
 //                    image.push("${DOCKER_TAG}")
 //                    image.push()
 
+                    //docker-hub-credentials needs to be added manually via Jenkins UI -> Credentials -> Jenkins global
                     docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-hub-credentials') {
                         image.push("${DOCKER_TAG}")
+//                      image without tag - is LATEST by default
                         image.push()
                     }
                 }
