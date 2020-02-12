@@ -35,11 +35,11 @@ pipeline {
 //                }
             }
         }
-        stage('lint') {
-            steps {
-                sh './gradlew spotlessCheck'
-            }
-        }
+//        stage('lint') {
+//            steps {
+//                sh './gradlew spotlessCheck'
+//            }
+//        }
         stage('build') {
             steps {
                 sh './gradlew assemble'
@@ -51,41 +51,46 @@ pipeline {
             }
             post {
                 always {
-                    publishTestReport('Unit Tests Report', 'build/reports/tests/test')
-                }
-            }
-        }
-        stage('integration tests') {
-            steps {
-                sh './gradlew integrationTest'
-            }
-            post {
-                always {
-                    publishTestReport('Integration Tests Report', 'build/reports/tests/integrationTest')
-                }
-            }
-        }
-
-//        https://jenkins.io/doc/book/pipeline/docker/#custom-registry
-        stage('docker') {
-            environment {
-                registry = "ilja07/country-phone"
-                registryCredential = 'dockerhub'
-                DOCKER_IMAGE = 'country-phone'
-                DOCKER_TAG = sh(returnStdout: true, script: "git rev-parse --short=8 HEAD").trim()
-            }
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    def image = docker.build("${DOCKER_IMAGE}", '-f Dockerfile .')
-                    image.push("${DOCKER_TAG}")
-                    image.push()
+                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
+                                 reportDir   : "build/reports/tests/test", reportFiles: 'index.html',
+                                 reportName  : "Unit Tests Report", reportTitles: ''])
                 }
             }
         }
     }
+    stage('integration tests') {
+        steps {
+            sh './gradlew integrationTest'
+        }
+        post {
+            always {
+                publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
+                             reportDir   : "build/reports/tests/integrationTest", reportFiles: 'index.html',
+                             reportName  : "Integration Tests Report", reportTitles: ''])
+            }
+        }
+    }
+
+//        https://jenkins.io/doc/book/pipeline/docker/#custom-registry
+    stage('docker') {
+        environment {
+            registry = "ilja07/country-phone"
+            registryCredential = 'dockerhub'
+            DOCKER_IMAGE = 'country-phone'
+            DOCKER_TAG = sh(returnStdout: true, script: "git rev-parse --short=8 HEAD").trim()
+        }
+        when {
+            branch 'master'
+        }
+        steps {
+            script {
+                def image = docker.build("${DOCKER_IMAGE}", '-f Dockerfile .')
+                image.push("${DOCKER_TAG}")
+                image.push()
+            }
+        }
+    }
+
 //    post {
 //        always {
 //            notifySlack(getCommitMsg(), currentBuild.currentResult)
