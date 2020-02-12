@@ -45,37 +45,37 @@ pipeline {
                 sh './gradlew assemble'
             }
         }
-//        stage('test') {
-//            steps {
-//                sh './gradlew test'
-//            }
-//            post {
-//                always {
-////                    NEED TO INSTALL  HTLMPublisher Jenkins plugin first
-////                    https://stackoverflow.com/questions/50649363/no-such-dsl-method-publishhtml-found-among-steps
-//                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
-//                                 reportDir   : "build/reports/tests/test", reportFiles: 'index.html',
-//                                 reportName  : "Unit Tests Report", reportTitles: ''])
-//                }
-//            }
-//        }
-//        stage('integration tests') {
-//            steps {
-//                sh './gradlew integrationTest'
-//            }
-//            post {
-//                always {
-//                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
-//                                 reportDir   : "build/reports/tests/integrationTest", reportFiles: 'index.html',
-//                                 reportName  : "Integration Tests Report", reportTitles: ''])
-//                }
-//            }
-//        }
+        stage('test') {
+            steps {
+                sh './gradlew test'
+            }
+            post {
+                always {
+//                    NEED TO INSTALL  HTLMPublisher Jenkins plugin first
+//                    https://stackoverflow.com/questions/50649363/no-such-dsl-method-publishhtml-found-among-steps
+                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
+                                 reportDir   : "build/reports/tests/test", reportFiles: 'index.html',
+                                 reportName  : "Unit Tests Report", reportTitles: ''])
+                }
+            }
+        }
+        stage('integration tests') {
+            steps {
+                sh './gradlew integrationTest'
+            }
+            post {
+                always {
+                    publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true,
+                                 reportDir   : "build/reports/tests/integrationTest", reportFiles: 'index.html',
+                                 reportName  : "Integration Tests Report", reportTitles: ''])
+                }
+            }
+        }
 
 //        https://jenkins.io/doc/book/pipeline/docker/#custom-registry
         stage('docker') {
             environment {
-                registry = "ilja07/country-phone"
+                REGISTRY = "ilja07/country-phone"
                 registryCredential = 'dockerhub'
                 DOCKER_IMAGE = 'country-phone'
                 DOCKER_TAG = sh(returnStdout: true, script: "git rev-parse --short=8 HEAD").trim()
@@ -85,9 +85,14 @@ pipeline {
             }
             steps {
                 script {
-                    def image = docker.build("${DOCKER_IMAGE}", '-f Dockerfile .')
-                    image.push("${DOCKER_TAG}")
-                    image.push()
+                    def image = docker.build("${REGISTRY}", '-f Dockerfile .')
+//                    image.push("${DOCKER_TAG}")
+//                    image.push()
+
+                    docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-hub-credentials') {
+                        image.push("${DOCKER_TAG}")
+                        image.push()
+                    }
                 }
             }
         }
