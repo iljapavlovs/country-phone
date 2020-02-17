@@ -73,12 +73,23 @@ kubectl create deployment country-phone --image=ilja07/country-phone
 ```
 OR 
 ```
-kubectl apply -f k8s/deployment.yml 
+kubectl create -f k8s/manifest.yml 
 ```
+OR
+```
+kubectl apply -f k8s/manifest.yml 
+```
+create vs apply -> https://stackoverflow.com/questions/47369351/kubectl-apply-vs-kubectl-create
+
 
 Verify status of pods
 ```
 kubectl get pods
+```
+
+Get all Kubernetes resources info - shows all pods, replicasets, deployments, services, etc
+```
+kubectl get all
 ```
 
 If POD is running, then open app locally
@@ -95,6 +106,20 @@ minikube service country-phone-service --url
 http://<minikube_ip>:30001/
 ```
 
+### [Update Deployment](https://dev.to/itnext/stateless-apps-in-kubernetes-beyond-pods-4p52)
+
+In case when you need to update some thing
+1. change the specification file
+2. apply the changes to Kubernetes master
+```
+kubectl apply -f k8s/manifest.yml
+```
+
+### Connect to Pod and Container
+In this case, our Pod has a single container, so we don't need to specify one
+```
+kubectl exec pod1 -it -- env | grep ENVVAR
+```
 ### Troubleshooting
 ```
 kubectl logs <POD_NAME>
