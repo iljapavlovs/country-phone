@@ -89,7 +89,7 @@ pipeline {
 //                    image.push()
 
                     //docker-hub-credentials needs to be added manually via Jenkins UI -> Credentials -> Jenkins global
-                    docker.withRegistry('https://registry-1.docker.io/v2/', 'docker-hub-credentials') {
+                    docker.withRegistry('https://registry-1.docker.io/v2/', 'dockerhub') {
                         image.push("${DOCKER_TAG}")
 //                      image without tag - is LATEST by default
                         image.push()
