@@ -1,0 +1,13 @@
+GET localhost:8080/helloworld
+
+###
+GET localhost:8080/workerqueue
+
+###
+GET localhost:8080/fanout
+
+###
+GET localhost:8080/emit/warning
+
+###
+GET localhost:8080/emit/warning

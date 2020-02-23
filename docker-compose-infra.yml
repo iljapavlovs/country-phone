@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+#    database:
+#        build: mysql
+#        image: tp_mysql
+#        command: --default-authentication-plugin=mysql_native_password
+#        ports:
+#        - "3306:3306"
+#        environment:
+#            TZ: "UTC"
+#            MYSQL_ROOT_PASSWORD: root
+#            MYSQL_DATABASE: tp
+#            MYSQL_USER: tp_admin
+#            MYSQL_PASSWORD: tp_admin
+    rabbitmq:
+        build: docker/rabbitmq
+        ports:
+        - "5672:5672"
+        - "15672:15672"

@@ -3,6 +3,8 @@ country-phone-code-provider:
     url: https://en.wikipedia.org/wiki/List_of_country_calling_codes
 
 
+
+#http://api.openweathermap.org/data/2.5/weather?q=riga&appid=954f62db749e56ea1d114dedcc40c83c
 logging:
   config: classpath:logback.xml
   level:
