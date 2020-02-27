@@ -4,6 +4,7 @@ import static io.iljapavlovs.countryphone.rabbitmq.RabbitMqConfig.EXCHNAGE_NAME_
 import static io.iljapavlovs.countryphone.rabbitmq.RabbitMqConfig.QUEUE_NAME_HELLO_WORLD;
 import static io.iljapavlovs.countryphone.rabbitmq.RabbitMqConfig.QUEUE_NAME_WORKER_QUEUE;
 
+import io.iljapavlovs.countryphone.rabbitmq.RabbitMqSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,18 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class RabbitController {
-  private static final Logger LOGGER = LoggerFactory.getLogger(RabbitController.class);
+public class RabbitExampleController {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(RabbitExampleController.class);
 
   @Autowired
-  RabbitTemplate template;
+  private RabbitMqSender rabbitMqSender;
+//  todo - not following Single responsibility principle. This shouuld be done via separate class for sending rabit messages - RabbitMqSender
+  @Autowired
+  private RabbitTemplate template;
 
   @RequestMapping("/helloworld")
   @ResponseBody
   String queue1() {
     final String msg = "Emit to Queue: " + QUEUE_NAME_HELLO_WORLD;
     LOGGER.info(msg);
-    template.convertAndSend(QUEUE_NAME_HELLO_WORLD,"Message to queue");
+
+    rabbitMqSender.sendRabbitSimpleMessage(msg);
     return msg;
   }
 
@@ -33,8 +39,9 @@ public class RabbitController {
   String workerQueues() {
     final String msg = "Emit to Queue: " + QUEUE_NAME_WORKER_QUEUE;
     LOGGER.info(msg);
-    for(int i = 0;i<10;i++)
-      template.convertAndSend(QUEUE_NAME_WORKER_QUEUE,"Message " + i);
+    for (int i = 0; i < 10; i++) {
+      template.convertAndSend(QUEUE_NAME_WORKER_QUEUE, "Message " + i);
+    }
     return msg;
   }
 
@@ -50,7 +57,7 @@ public class RabbitController {
   }
 
 
-//  4. ROUTING
+  //  4. ROUTING
   @RequestMapping("/emit/error")
   @ResponseBody
   String error() {
