@@ -1,0 +1,22 @@
+// IMPORTANT -
+//* Messages are not published directly to a queue, instead, the producer sends messages to an exchange.
+//* An exchange is responsible for the routing of the messages to the different queues.
+//* An exchange accepts messages from the producer application and routes them to message queues with the help of bindings and routing keys.
+//* A binding is a link between a queue and an exchange.
+
+#https://habr.com/ru/post/262069/
+# Following endpoints just send messages to respective queueus
+
+GET localhost:8080/helloworld
+
+###
+GET localhost:8080/workerqueue
+
+###
+GET localhost:8080/fanout
+
+###
+GET localhost:8080/emit/warning
+
+###
+GET localhost:8080/emit/warning

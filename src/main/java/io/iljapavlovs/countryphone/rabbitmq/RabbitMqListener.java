@@ -12,6 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+// IMPORTANT -
+//* Messages are not published directly to a queue, instead, the producer sends messages to an exchange.
+//* An exchange is responsible for the routing of the messages to the different queues.
+//* An exchange accepts messages from the producer application and routes them to message queues with the help of bindings and routing keys.
+//* A binding is a link between a queue and an exchange.
+
 //NOT NEEDED - @EnableRabbit //нужно для активации обработки аннотаций @RabbitListener
 @Component
 public class RabbitMqListener {

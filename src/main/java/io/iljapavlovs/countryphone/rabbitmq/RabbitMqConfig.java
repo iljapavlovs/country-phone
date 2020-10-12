@@ -16,8 +16,23 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// IMPORTANT -
+//* Messages are not published directly to a queue, instead, the producer sends messages to an exchange.
+//* An exchange is responsible for the routing of the messages to the different queues.
+//* An exchange accepts messages from the producer application and routes them to message queues with the help of bindings and routing keys.
+//* A binding is a link between a queue and an exchange.
+
 @Configuration
 public class RabbitMqConfig {
+
+//  Для работы с RabbitMQ нам потребуются следующие бины:
+// — сonnectionFactory — для соединения с RabbitMQ;
+//— rabbitAdmin — для регистрации/отмены регистрации очередей и т.п.;
+//— rabbitTemplate — для отправки сообщений (producer);
+//— myQueue1 — собственно очередь куда посылаем сообщения;
+//— messageListenerContainer — принимает сообщения (consumer).
+
+
   private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMqConfig.class);
   public static final String QUEUE_NAME_HELLO_WORLD = "queue1";
   public static final String QUEUE_NAME_WORKER_QUEUE = "queue2";
@@ -35,26 +50,26 @@ public class RabbitMqConfig {
 //      return new CachingConnectionFactory("localhost");
 //    }
 
-//     rabbitAdmin — для регистрации/отмены регистрации очередей и т.п.;
-    @Bean
-    public AmqpAdmin amqpAdmin(ConnectionFactory connectionFactory) {
-      return new RabbitAdmin(connectionFactory);
-    }
+  //     rabbitAdmin — для регистрации/отмены регистрации очередей и т.п.;
+  @Bean
+  public AmqpAdmin amqpAdmin(ConnectionFactory connectionFactory) {
+    return new RabbitAdmin(connectionFactory);
+  }
 
-//    PRODUCER - CLIENT TO SEND MESSAGE
-    @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter messageConverter) {
-      final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-       rabbitTemplate
-          .setMessageConverter(messageConverter);
-      return rabbitTemplate;
-    }
+  //    PRODUCER - CLIENT TO SEND MESSAGE
+  @Bean
+  public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter messageConverter) {
+    final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+    rabbitTemplate
+        .setMessageConverter(messageConverter);
+    return rabbitTemplate;
+  }
 
-    //объявляем очередь с именем queue1
-    @Bean
-    public Queue myQueue1() {
-      return new Queue(QUEUE_NAME_HELLO_WORLD, false);
-    }
+  //объявляем очередь с именем queue1
+  @Bean
+  public Queue myQueue1() {
+    return new Queue(QUEUE_NAME_HELLO_WORLD, false);
+  }
 
   @Bean
   public Queue myQueue2() {
@@ -71,9 +86,8 @@ public class RabbitMqConfig {
     return new Queue(QUEUE_NAME_FANOUT2, false);
   }
 
-
   //CONSUMER - объявляем контейнер, который будет содержать листенер для сообщений - WILL EXCEUTE WHEN BEANS LOADS
-    //-> SHOULD BE DONE VIA @RABBITLISTENER
+  //-> SHOULD BE DONE VIA @RABBITLISTENER
 //    @Bean
 //    public SimpleMessageListenerContainer messageListenerContainer1(ConnectionFactory connectionFactory) {
 //      SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
@@ -89,24 +103,12 @@ public class RabbitMqConfig {
     return new Jackson2JsonMessageConverter();
   }
 
-
   //3. Publish/Subscribe - FANOUT - BROADCAST TO ALL
 
   // CREATE EXCHNAGE WITH TYPE FANOUT (BROADCAST)
   @Bean
-  public FanoutExchange fanoutExchangeA(){
+  public FanoutExchange fanoutExchangeA() {
     return new FanoutExchange(EXCHNAGE_NAME_FANOUT);
-  }
-
-  // NEED TO BIND QUEUE TO EXCHANGE
-  @Bean
-  public Binding binding1(){
-    return BindingBuilder.bind(myQueue3()).to(fanoutExchangeA());
-  }
-
-  @Bean
-  public Binding binding2(){
-    return BindingBuilder.bind(myQueue4()).to(fanoutExchangeA());
   }
 
 
@@ -124,28 +126,43 @@ public class RabbitMqConfig {
 
   // Exchange TYPE - DIRECT
   @Bean
-  public DirectExchange directExchange(){
+  public DirectExchange directExchange() {
     return new DirectExchange(EXCHNAGE_NAME_DIRECT);
   }
 
+
+  // BINDINGS
+
+  // NEED TO BIND QUEUE TO EXCHANGE
   @Bean
-  public Binding errorBinding1(){
-      //SET ROUTING KEY TO THE BINDING
+  public Binding binding1() {
+    return BindingBuilder.bind(myQueue3()).to(fanoutExchangeA());
+  }
+
+  @Bean
+  public Binding binding2() {
+    return BindingBuilder.bind(myQueue4()).to(fanoutExchangeA());
+  }
+
+
+  @Bean
+  public Binding errorBinding1() {
+    //SET ROUTING KEY TO THE BINDING
     return BindingBuilder.bind(myQueue5()).to(directExchange()).with("error");
   }
 
   @Bean
-  public Binding errorBinding2(){
+  public Binding errorBinding2() {
     return BindingBuilder.bind(myQueue6()).to(directExchange()).with("error");
   }
 
   @Bean
-  public Binding infoBinding(){
+  public Binding infoBinding() {
     return BindingBuilder.bind(myQueue6()).to(directExchange()).with("info");
   }
 
   @Bean
-  public Binding warningBinding(){
+  public Binding warningBinding() {
     return BindingBuilder.bind(myQueue6()).to(directExchange()).with("warning");
   }
 
