@@ -1,6 +1,7 @@
 * https://habr.com/ru/post/262069/
 * http://localhost:15672/
 * https://www.rabbitmq.com/getstarted.html
+* MUST - very simple explanation https://reflectoring.io/event-messaging-with-spring-boot-and-rabbitmq/
 
 
 1. Start Rabbit
@@ -32,3 +33,8 @@ Message flow in RabbitMQ
 * **Fanout:** A fanout exchange routes messages to all of the queues that are bound to it.
 * **Topic:** The topic exchange does a wildcard match between the routing key and the routing pattern specified in the binding.
 * **Headers**: Headers exchanges use the message header attributes for routing.
+
+* The application will automatically 
+    * connect to RabbitMQ and 
+    * **create an Exchange,  a Queue and a Binding with this name will be created on Rabbit MQ server (broker), if it doesn’t exist yet.** 
+
